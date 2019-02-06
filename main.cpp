@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -38,6 +40,8 @@ int main(int argc, const char * argv[]) {
     int total, indivGrade, i, a;
     float perc;
     
+
+    ofstream writefile ("list.txt");
     
     for(i=0; i< n; i++){
         cout << "\n\n*Enter details of student " << (i+1) << "*\n";
@@ -52,13 +56,25 @@ int main(int argc, const char * argv[]) {
             total += indivGrade;
         }
         perc=(float)total/(assignments*100)*100;
+//      Writes data to txt file
+        writefile <<  name << endl << rollNo << endl << total << endl << perc << endl;
         individualStudent newStudent;
         newStudent.name = name;
         newStudent.rollNo = rollNo;
         newStudent.total = total;
         newStudent.perc = perc;
         studentList.push_back(newStudent);
+        cout<<" Student " << i << " stored."<<endl;
     }
+        cout <<"All details have been successfully saved"<<endl;
+        writefile.close();
+    
+        string p;
+        ifstream readFile;
+        readFile.open("list.txt");
+        while (readFile >> p) {
+            cout << p << endl;
+        }
     
     cout << endl;
     
